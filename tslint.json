@@ -22,7 +22,8 @@
       true,
       "no-public",
       "check-accessor"
-    ]
+    ],
+    "jsx-boolean-value": false
   },
   "defaultSeverity": "warning"
 }
