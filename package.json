@@ -2,6 +2,13 @@
   "name": "movie-searcher",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [ "ts", "tsx", "js", "jsx", "json", "node" ]
+  },
   "dependencies": {
     "react": "^16.7.0",
     "react-dom": "^16.7.0",

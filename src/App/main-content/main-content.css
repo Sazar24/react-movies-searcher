@@ -1,10 +1,11 @@
 .main-content {
-    margin-top: 0px;
-    min-height: 20%;
+    min-height: 40%;
     background-color: silver;
 
+    margin-top: 5px;
     margin-left: 1vh;
     margin-right: 1vh;
+    
 
-    padding: 3px;
+    padding: 20px 3px 0px;
 }
