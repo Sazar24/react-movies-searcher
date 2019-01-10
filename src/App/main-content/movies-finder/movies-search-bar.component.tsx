@@ -3,16 +3,16 @@ import { Button, Segment, Portal, Header } from 'semantic-ui-react'
 import SelectYearTile from './search-parameters-selecting/year.component';
 import SelectMovieTypeTile from './search-parameters-selecting/type.component';
 import TitleSelectTile from './search-parameters-selecting/title.component';
-import ApiCaller from './services/apiCaller.service';
+import ApiParameterStore from './services/apiParametersStore.service';
 import { Redirect } from 'react-router-dom';
 
-class MoviesFinder extends React.Component {
+class MoviesSearchBar extends React.Component {
     state = {
         redirect: false,
         titleRequiredWarningShow: false
     }
 
-    apiCallerService: ApiCaller = new ApiCaller();
+    apiCallerService: ApiParameterStore = new ApiParameterStore();
 
     handleClick = () => {
         this.apiCallerService.showParams();
@@ -33,7 +33,7 @@ class MoviesFinder extends React.Component {
 
     renderRedirectIfCalled() {
         if (this.state.redirect) {
-            return <Redirect to={"search/" + this.apiCallerService.getParamsAsRoute()} />
+            return <Redirect to={"search/result/" + this.apiCallerService.getParamsAsRoute()} />
         }
         else return;
     }
@@ -54,7 +54,6 @@ class MoviesFinder extends React.Component {
                 >
                     Run search
                 </Button>
-
                 {this.renderRedirectIfCalled()}
 
                 <Portal open={this.state.titleRequiredWarningShow} onClose={() => this.setState({ titleRequiredWarningShow: false })}>
@@ -69,4 +68,4 @@ class MoviesFinder extends React.Component {
     }
 }
 
-export default MoviesFinder
+export default MoviesSearchBar

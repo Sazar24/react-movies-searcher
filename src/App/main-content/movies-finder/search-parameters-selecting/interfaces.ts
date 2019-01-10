@@ -1,7 +1,7 @@
-import ApiCaller from "../services/apiCaller.service";
+import ApiParameterStore from "../services/apiParametersStore.service";
 
 export interface ISearchParamTileProps {
-    apiService: ApiCaller;
+    apiService: ApiParameterStore;
 }
 
 export interface IDropdownItemOption {
