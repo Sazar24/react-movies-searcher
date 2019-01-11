@@ -31,11 +31,11 @@
 
 #
 ## What other features could be in the project, but I won`t include 
-~~... because I have better things to do :)~~  
 ... because od little time.
 There could be:
 - probably more colors. Everyone like rainbows...
 - more tests. There always should be more tests...
+- IoC. 
 
 #
 ## How to start

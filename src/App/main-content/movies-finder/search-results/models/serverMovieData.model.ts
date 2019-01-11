@@ -1,5 +1,4 @@
-
-export interface IMovieData {
+export default interface IMovieData {
     Title: string;
     Year: string;
     imdbID: string;

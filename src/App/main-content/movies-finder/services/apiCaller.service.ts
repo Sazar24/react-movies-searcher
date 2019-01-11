@@ -1,43 +1,65 @@
 import axios from 'axios';
-
-function ensureParamIsString(textOrNull: string | string[] | null | undefined): string { // TODO: move to service 
-    if (typeof (textOrNull) === "string")
-        return textOrNull;
-    else return "";
-}
+import IMovieData from '../search-results/models/serverMovieData.model';
+import IApiRequestResponse from '../search-results/models/apiRequestResponse.model';
 
 export default class ApiCaller {
     private title: string;
     private type: string;
     private year: string;
+    private page: string;
     private personalApiKey: string = "6341c995" // TODO: move it to .env
+    private resultPagesTotalAmmount: number;
+    private moviesListTyped: IMovieData[] = [];
 
-    public async getMoviesByParams(title, type, year) {
-        this.title = ensureParamIsString(title);
-        this.type = ensureParamIsString(type);
-        this.year = ensureParamIsString(year);
-
-        return await this.getMovies(this.title, this.type, this.year);
+    public async attemptRequestGetMovies(title, type, year, page): Promise<boolean> {
+        this.title = this.ensureParamIsString(title);
+        this.type = this.ensureParamIsString(type);
+        this.year = this.ensureParamIsString(year);
+        this.page = this.ensureParamIsString(page);
+        
+        const requestResponse = await this.getMovies(this.title, this.type, this.year);
+        
+        if (requestResponse.Response === "False") return false;
+        else {
+            this.moviesListTyped = requestResponse.Search;
+            this.setPagesTotalAmmount(requestResponse.totalResults)
+            return true;
+        }
+    }
+    
+    public getMoviesList(): IMovieData[] {
+        return this.moviesListTyped;
+    }
+    
+    public getResultPagesTotalAmmount():number{
+        return this.resultPagesTotalAmmount;
+    }
+    
+    private setPagesTotalAmmount(ammount: number): void {
+        const moviesPerPage: number = 10
+        this.resultPagesTotalAmmount = Math.ceil(ammount / moviesPerPage);
     }
 
-    private async getMovies(title: string, type: string, year: string) {
+    private async getMovies(title: string, type: string, year: string) : Promise<IApiRequestResponse>{
         const apiUrl: string = "http://www.omdbapi.com/"
 
         const requestUrl = apiUrl + "?&apikey=" + this.personalApiKey + this.combineParamsToUrl();
-        console.log("request url: " + requestUrl);
         const result = await axios.get(requestUrl);
-        console.log(result);
-        return result.data.Search;
+        return result.data;
     }
 
     private combineParamsToUrl(): string {
         const combinedUrl: string = "&s=" + this.title +
             (this.type ? "&type=" + this.type : "") +
-            (this.year ? "&year=" + this.year : "");
+            (this.year ? "&year=" + this.year : "") +
+            (this.page ? "&page=" + this.page : "&page=1");
 
-
-        console.log("combinedUrl: " + combinedUrl);
         return combinedUrl;
     }
 
+    private ensureParamIsString(textValueFromJSONparser: string | string[] | null | undefined): string {
+        if (typeof (textValueFromJSONparser) === "string")
+            return textValueFromJSONparser;
+        else return "";
+    }
 }

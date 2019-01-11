@@ -19,6 +19,7 @@ class MainContent extends React.Component {
                     {/* <Route path="/search" component={SearchComponents} /> */}
                     <Route exact path="/history" component={SearchHistory} />
                     <Route exact path="/about" component={About} />
+                    {/* <Route exact path="/details/:movieId" component={Details} /> */} {/* TODO */}
                 </Switch>
             </div>
         );

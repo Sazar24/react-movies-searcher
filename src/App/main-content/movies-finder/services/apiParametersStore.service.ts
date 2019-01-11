@@ -2,6 +2,7 @@ export default class ApiParameterStore {
     private title: string;
     private type: string;
     private year: number;
+    private page: number;
 
     public changeTitleSearchParam(newTitle: string) {
         this.title = newTitle;
@@ -13,14 +14,6 @@ export default class ApiParameterStore {
 
     public changeYearSearchParam(newYear: number) {
         this.year = newYear;
-    }
-
-    public showParams(): void {
-        console.log(`my params are: 
-                    title: ${this.title} 
-                    type: ${this.type} 
-                    year: ${this.year}
-        `);
     }
 
     public isTitleSet(): boolean {
@@ -35,9 +28,10 @@ export default class ApiParameterStore {
         let paramsConcated: string;
         const couplerMark: string = "&"
 
-        paramsConcated = (this.title ? "?title=" + this.title : "")  +
+        paramsConcated = (this.title ? "?title=" + this.title : "") +
             (this.type ? couplerMark + "type=" + this.type : "") +
-            (this.year ? couplerMark + "year=" + this.year : "");
+            (this.year ? couplerMark + "year=" + this.year : "") +
+            (this.page ? "&page=" + this.page : "&page=1")
 
         return paramsConcated;
     }

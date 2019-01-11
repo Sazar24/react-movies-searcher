@@ -1,11 +1,14 @@
 import ApiCaller from "./apiCaller.service";
+import IMovieData from '../search-results/models/serverMovieData.model';
 
-test.skip('Server works, personal api-key is correct and valid, response-status == 200', async () => {
+test('Server works, personal api-key is correct and valid, response-status == 200', async () => {
     const apiCaller = new ApiCaller();
-    const response: any = await apiCaller.getMoviesByParams("doctor", "movie", "2000");
+    const isRequestOK: boolean = await apiCaller.attemptRequestGetMovies("doctor", "movie", "2000", "1");
 
-    expect(response).toBeDefined();
-    // expect(response.status).toBe(200);
+    expect(isRequestOK).toBe(true);
 
-
+    if (isRequestOK) {
+        const moviesList: IMovieData[] = apiCaller.getMoviesList();
+        expect(moviesList.length>0).toBe(true);
+    }
 });

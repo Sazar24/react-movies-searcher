@@ -15,7 +15,6 @@ class MoviesSearchBar extends React.Component {
     apiCallerService: ApiParameterStore = new ApiParameterStore();
 
     handleClick = () => {
-        this.apiCallerService.showParams();
         if (this.apiCallerService.isTitleSet())
             this.setRedirect();
         else this.warnAboutTitleNeeded();
