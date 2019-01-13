@@ -12,7 +12,6 @@ export default class ApiByIDCaller {
         const requestUrl = this.apiUrl + "?&apikey=" + this.personalApiKey + "&i=" + id;
         const response: any = await axios.get(requestUrl);
 
-
         if (response.Response === "False") {
             return false;
         }

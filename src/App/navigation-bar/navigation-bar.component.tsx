@@ -13,9 +13,6 @@ class NavigationBar extends React.Component {
                     <Menu.Item name="search movie"
                         as={Link} to="/search"
                     />
-                    <Menu.Item name="search-history"
-                        as={Link} to="/history"
-                    />
                     <Menu.Item name="about"
                         as={Link} to="/about"
                     />

@@ -3,7 +3,7 @@ import './App.css';
 
 import NavigationBar from './navigation-bar/navigation-bar.component';
 import { BrowserRouter as Router } from "react-router-dom";
-import MainContent from './main-content/main-content.component';
+import RouterContent from './main-content/router-content.component';
 
 class App extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class App extends React.Component {
       <Router>
         <div className="App">
           <NavigationBar />
-          <MainContent />
+          <RouterContent />
         </div>
       </Router>
     );
