@@ -7,7 +7,7 @@ interface IMovieFoundAsRow {
     movieItem: IMovieData;
 }
 
-class MovieFoundAsRow extends React.Component<IMovieFoundAsRow>{
+class MoviesListItemAsRow extends React.Component<IMovieFoundAsRow>{
 
     render() {
         const { movieItem } = this.props;
@@ -23,7 +23,6 @@ class MovieFoundAsRow extends React.Component<IMovieFoundAsRow>{
                     <h3> {movieItem.Title} </h3>
                     <p> year: {movieItem.Year} </p>
                     <p> Type: {movieItem.Type} </p>
-                    {/* // TODO: onclick to see redirect to details */}
                     <Link to={"/details/" + movieItem.imdbID}>
                         --click here to see movie details--
                     </Link>
@@ -33,4 +32,4 @@ class MovieFoundAsRow extends React.Component<IMovieFoundAsRow>{
     }
 }
 
-export default MovieFoundAsRow;
+export default MoviesListItemAsRow;

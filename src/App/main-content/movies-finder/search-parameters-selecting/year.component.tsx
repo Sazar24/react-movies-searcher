@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Segment, Header, Dropdown } from 'semantic-ui-react'
 import YearsListMaker from './yearsListMaker.service';
-import { ISearchParamTileProps, IDropdownItemOption } from './interfaces';
+import { ISearchParamTileProps, IDropdownItemOption } from './ui-interfaces.model';
 
 class SelectYearTile extends React.Component<ISearchParamTileProps> {
     constructor(props: ISearchParamTileProps) {

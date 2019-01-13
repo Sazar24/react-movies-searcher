@@ -6,7 +6,7 @@ import SearchHistory from './search-history/search-history.component';
 import About from './about/about.component';
 import "./main-content.css";
 import SearchResults from './movies-finder/search-results/search-results.component';
-import SearchComponents from './movies-finder/search-components.component';
+import MovieDetails from './movies-finder/search-results/one-movie-details-view/one-movie-details-view.component';
 
 class MainContent extends React.Component {
     render() {
@@ -16,10 +16,9 @@ class MainContent extends React.Component {
                     <Route exact path="/" component={MainPage} />
                     <Route exact path="/search" component={MoviesSearchBar} />
                     <Route path="/search/result/" component={SearchResults} />
-                    {/* <Route path="/search" component={SearchComponents} /> */}
                     <Route exact path="/history" component={SearchHistory} />
                     <Route exact path="/about" component={About} />
-                    {/* <Route exact path="/details/:movieId" component={Details} /> */} {/* TODO */}
+                    <Route exact path="/details/:movieId" component={MovieDetails} />
                 </Switch>
             </div>
         );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Segment, Header, Dropdown } from 'semantic-ui-react'
-import { ISearchParamTileProps, IDropdownItemOption } from './interfaces';
+import { ISearchParamTileProps, IDropdownItemOption } from './ui-interfaces.model';
 
 
 

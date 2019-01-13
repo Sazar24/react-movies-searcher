@@ -9,38 +9,38 @@ export default class ApiCaller {
     private page: string;
     private personalApiKey: string = "6341c995" // TODO: move it to .env
     private resultPagesTotalAmmount: number;
-    private moviesListTyped: IMovieData[] = [];
+    private moviesList: IMovieData[] = [];
 
-    public async attemptRequestGetMovies(title, type, year, page): Promise<boolean> {
+    public async attemptRequestGetMovies(title, type, year, page: any = "1"): Promise<boolean> {
         this.title = this.ensureParamIsString(title);
         this.type = this.ensureParamIsString(type);
         this.year = this.ensureParamIsString(year);
         this.page = this.ensureParamIsString(page);
-        
+
         const requestResponse = await this.getMovies(this.title, this.type, this.year);
-        
+
         if (requestResponse.Response === "False") return false;
         else {
-            this.moviesListTyped = requestResponse.Search;
+            this.moviesList = requestResponse.Search;
             this.setPagesTotalAmmount(requestResponse.totalResults)
             return true;
         }
     }
-    
+
     public getMoviesList(): IMovieData[] {
-        return this.moviesListTyped;
+        return this.moviesList;
     }
-    
-    public getResultPagesTotalAmmount():number{
+
+    public getResultPagesTotalAmmount(): number {
         return this.resultPagesTotalAmmount;
     }
-    
+
     private setPagesTotalAmmount(ammount: number): void {
         const moviesPerPage: number = 10
         this.resultPagesTotalAmmount = Math.ceil(ammount / moviesPerPage);
     }
 
-    private async getMovies(title: string, type: string, year: string) : Promise<IApiRequestResponse>{
+    private async getMovies(title: string, type: string, year: string): Promise<IApiRequestResponse> {
         const apiUrl: string = "http://www.omdbapi.com/"
 
         const requestUrl = apiUrl + "?&apikey=" + this.personalApiKey + this.combineParamsToUrl();
@@ -52,7 +52,7 @@ export default class ApiCaller {
         const combinedUrl: string = "&s=" + this.title +
             (this.type ? "&type=" + this.type : "") +
             (this.year ? "&year=" + this.year : "") +
-            (this.page ? "&page=" + this.page : "&page=1");
+            (this.page ? "&page=" + this.page : "");
 
         return combinedUrl;
     }

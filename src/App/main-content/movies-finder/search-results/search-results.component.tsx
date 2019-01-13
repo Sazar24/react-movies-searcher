@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 import ApiCaller from '../services/apiCaller.service';
 import IMovieData from './models/serverMovieData.model';
 import MovieListMapperWithPagginator from './movie-list-mapper.component';
-import LoaderAndFailureInfo from './Loader-and-aboutfailureMessenger.component';
+import LoaderAndFailureInfo from './warns-and-loading/Loader-and-aboutfailureMessenger.component';
 
 
 interface IState {

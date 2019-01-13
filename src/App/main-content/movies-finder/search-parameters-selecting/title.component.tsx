@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Segment, Header, Input} from 'semantic-ui-react'
-import { ISearchParamTileProps } from './interfaces';
+import { ISearchParamTileProps } from './ui-interfaces.model';
 
 class TitleSelectTile extends React.Component<ISearchParamTileProps>{
     constructor(props: ISearchParamTileProps) {
