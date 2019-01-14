@@ -17,7 +17,7 @@ export default class LoaderAndFailureInfo extends React.Component<IProps> {
                     ? <div>
                         <Icon name="frown outline" size="massive" />
                         <h2>
-                            There was problem with the database-server or movie your are looking for does not exist.
+                            There was problem with the database-server or movie/page  your are looking for does not exist.
                         </h2>
                     </div>
                     :

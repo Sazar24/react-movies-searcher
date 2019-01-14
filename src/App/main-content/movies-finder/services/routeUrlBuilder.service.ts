@@ -1,4 +1,4 @@
-export default class RouterUrlBuilder {
+export default class UrlBuilder {
     private title: string;
     private type: string;
     private year: number;
@@ -24,7 +24,8 @@ export default class RouterUrlBuilder {
         else return false;
     }
 
-    public getParamsAsRoute(): string {
+
+    public buildRoute(): string {
         let paramsConcated: string;
         const couplerMark: string = "&"
 

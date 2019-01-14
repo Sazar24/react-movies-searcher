@@ -33,6 +33,7 @@ export default class MoviesApiSearchByParams {
         return this.resultPagesTotalAmmount;
     }
 
+
     private setPagesTotalAmmount(ammount: number): void {
         const moviesPerPage: number = 10
         this.resultPagesTotalAmmount = Math.ceil(ammount / moviesPerPage);

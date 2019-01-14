@@ -28,41 +28,57 @@ class SearchResults extends React.Component<any, IState> {
     }
 
 
-    redirectToSearchIfNoTitleIsGiven() {
-        const urlParams = queryString.parse(this.props.location.search);
+    redirectToSearchIfNoTitleInRoute() {
+        const urlParams: queryString.OutputParams = queryString.parse(this.props.location.search);
 
-        if (!urlParams.title)
+        if (!this.isTitleDefined(urlParams))
             return <Redirect to="/search" />
         else return;
     }
 
 
     async downloadMoviesToStateOrWarnWhenFailure() {
-        const urlParams = queryString.parse(this.props.location.search);
+        const urlParams: queryString.OutputParams = queryString.parse(this.props.location.search);
         const { title, type, year, page } = urlParams;
 
         const isRequestSuccess: boolean = await this.apiCaller.attemptRequestGetMovies(title, type, year, page);
         if (isRequestSuccess) {
-            const movies: IMovieData[] = this.apiCaller.getDownloadedMoviesList();
-            this.setState({
-                moviesList: movies,
-                totalResultPagesAmmount: this.apiCaller.getResultPagesTotalAmmount()
-            });
+            this.saveDataAndUpdateState();
         }
-        else this.setState({ isFetchingFailure: true });
+        else this.updateStateThatRequestFailed();
     }
 
-    componentWillMount() {
+
+    isTitleDefined(urlParams: queryString.OutputParams) {
+        if (urlParams.title) return true;
+        else return false;
+    }
+
+    saveDataAndUpdateState(): void {
+        const movies: IMovieData[] = this.apiCaller.getDownloadedMoviesList();
+        this.setState({
+            moviesList: movies,
+            totalResultPagesAmmount: this.apiCaller.getResultPagesTotalAmmount()
+        });
+    }
+
+    updateStateThatRequestFailed(): void {
+        this.setState({ isFetchingFailure: true });
+    }
+
+    public componentWillMount() {
         this.downloadMoviesToStateOrWarnWhenFailure();
     }
 
-    render() {
+
+    public render() {
+        
         const { moviesList, totalResultPagesAmmount, isFetchingFailure } = this.state;
         const isMovieListDownloaded: boolean = moviesList.length > 0;
 
         return (
             <div>
-                {this.redirectToSearchIfNoTitleIsGiven()}
+                {this.redirectToSearchIfNoTitleInRoute()}
 
                 {isMovieListDownloaded
                     ? <MovieListMapperWithPagginator
@@ -70,7 +86,11 @@ class SearchResults extends React.Component<any, IState> {
                         totalResultPagesAmmount={totalResultPagesAmmount}
                     />
                     : ""}
-                <LoaderAndFailureInfo isActive={!isMovieListDownloaded} fetchingHasFailed={isFetchingFailure} />
+
+                <LoaderAndFailureInfo
+                    isActive={!isMovieListDownloaded}
+                    fetchingHasFailed={isFetchingFailure}
+                />
             </div>
         )
     }

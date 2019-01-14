@@ -3,10 +3,10 @@ import IMovieDataFullDetails from '../search-results/models/serverMovieData-Full
 
 
 export default class MoviesApiSearchById {
-    private apiUrl: string = "http://www.omdbapi.com/"
+    private apiUrl: string = "http://www.omdbapi.com/";
     private movieFoundById: IMovieDataFullDetails;
 
-    async attemptGetMovieById(id: string): Promise<boolean> {
+    public async attemptGetMovieById(id: string): Promise<boolean> {
         const requestUrl = this.getRequestUrl(id);
         const response: any = await axios.get(requestUrl);
 
@@ -20,7 +20,7 @@ export default class MoviesApiSearchById {
     }
 
 
-    getMovieById(): IMovieDataFullDetails {
+    public getMovieById(): IMovieDataFullDetails {
         if (typeof (this.movieFoundById) === 'undefined') {
             throw new Error("First make server request to download movie data");
         }

@@ -3,7 +3,7 @@ import { Button, Segment, Portal, Header } from 'semantic-ui-react'
 import SelectYearTile from './search-parameters-selecting/year.component';
 import SelectMovieTypeTile from './search-parameters-selecting/type.component';
 import TitleSelectTile from './search-parameters-selecting/title.component';
-import RouterUrlBuilder from './services/routeUrlBuilder.service';
+import UrlBuilder from './services/routeUrlBuilder.service';
 import { Redirect } from 'react-router-dom';
 
 class MoviesSearchBar extends React.Component {
@@ -12,7 +12,7 @@ class MoviesSearchBar extends React.Component {
         titleRequiredWarningShow: false
     }
 
-    apiCallerService: RouterUrlBuilder = new RouterUrlBuilder();
+    apiCallerService: UrlBuilder = new UrlBuilder();
 
     handleClick = () => {
         if (this.apiCallerService.isTitleSet())
@@ -32,7 +32,7 @@ class MoviesSearchBar extends React.Component {
 
     renderRedirectIfCalled() {
         if (this.state.redirect) {
-            return <Redirect to={"search/result/" + this.apiCallerService.getParamsAsRoute()} />
+            return <Redirect to={"search/result/" + this.apiCallerService.buildRoute()} />
         }
         else return;
     }
