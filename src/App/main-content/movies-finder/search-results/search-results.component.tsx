@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as queryString from 'query-string';
 import { Redirect } from 'react-router';
-import ApiCaller from '../services/apiCaller.service';
+import MoviesApiSearchByParams from '../services/moviesApi-searchByParams.service';
 import IMovieData from './models/serverMovieData.model';
 import MovieListMapperWithPagginator from './movie-list-mapper.component';
 import LoaderAndFailureInfo from './warns-and-loading/Loader-and-aboutfailureMessenger.component';
@@ -15,7 +15,7 @@ interface IState {
 }
 
 class SearchResults extends React.Component<any, IState> {
-    apiCaller: ApiCaller = new ApiCaller();
+    apiCaller: MoviesApiSearchByParams = new MoviesApiSearchByParams();
 
     constructor(props) {
         super(props);
@@ -43,7 +43,7 @@ class SearchResults extends React.Component<any, IState> {
 
         const isRequestSuccess: boolean = await this.apiCaller.attemptRequestGetMovies(title, type, year, page);
         if (isRequestSuccess) {
-            const movies: IMovieData[] = this.apiCaller.getMoviesList();
+            const movies: IMovieData[] = this.apiCaller.getDownloadedMoviesList();
             this.setState({
                 moviesList: movies,
                 totalResultPagesAmmount: this.apiCaller.getResultPagesTotalAmmount()

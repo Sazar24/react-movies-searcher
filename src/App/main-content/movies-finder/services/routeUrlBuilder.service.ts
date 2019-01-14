@@ -1,4 +1,4 @@
-export default class ApiParameterStore {
+export default class RouterUrlBuilder {
     private title: string;
     private type: string;
     private year: number;

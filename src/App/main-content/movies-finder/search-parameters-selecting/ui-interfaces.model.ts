@@ -1,7 +1,7 @@
-import ApiParameterStore from "../services/apiParametersStore.service";
+import RouterUrlBuilder from '../services/routeUrlBuilder.service';
 
 export interface ISearchParamTileProps {
-    apiService: ApiParameterStore;
+    apiService: RouterUrlBuilder;
 }
 
 export interface IDropdownItemOption {

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import ApiCaller from '../../services/apiCaller.service';
+import MoviesApiSearchByParams from '../../services/moviesApi-searchByParams.service';
 import * as queryString from 'query-string';
-import ApiByIDCaller from '../../services/api-byIDCaller.service';
+import MoviesApiSearchById from '../../services/moviesApi-searchById.service';
 import IMovieDataFullDetails from '../models/serverMovieData-FullDetails.model';
 import IMovieData from '../models/serverMovieData.model';
 import { Grid, GridRow, Image } from 'semantic-ui-react';
@@ -11,7 +11,7 @@ interface IState {
 }
 
 class MovieDetails extends React.Component<any, IState>{
-    apiCaller: ApiByIDCaller = new ApiByIDCaller();
+    apiCaller: MoviesApiSearchById = new MoviesApiSearchById();
     constructor(props) {
         super(props);
         this.state = ({
@@ -50,7 +50,6 @@ class MovieDetails extends React.Component<any, IState>{
         if (movieDetails === null)
             return this.noDataYetMessage();
 
-        // console.log("in render(): ", movieDetails);
         return (
             <div>
                 <Grid centered>

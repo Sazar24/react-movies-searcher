@@ -3,7 +3,7 @@ import { Button, Segment, Portal, Header } from 'semantic-ui-react'
 import SelectYearTile from './search-parameters-selecting/year.component';
 import SelectMovieTypeTile from './search-parameters-selecting/type.component';
 import TitleSelectTile from './search-parameters-selecting/title.component';
-import ApiParameterStore from './services/apiParametersStore.service';
+import RouterUrlBuilder from './services/routeUrlBuilder.service';
 import { Redirect } from 'react-router-dom';
 
 class MoviesSearchBar extends React.Component {
@@ -12,7 +12,7 @@ class MoviesSearchBar extends React.Component {
         titleRequiredWarningShow: false
     }
 
-    apiCallerService: ApiParameterStore = new ApiParameterStore();
+    apiCallerService: RouterUrlBuilder = new RouterUrlBuilder();
 
     handleClick = () => {
         if (this.apiCallerService.isTitleSet())
@@ -42,6 +42,8 @@ class MoviesSearchBar extends React.Component {
 
         return (
             <div>
+                {this.renderRedirectIfCalled()}
+
                 <Segment style={centered} vertical compact>
                     <TitleSelectTile apiService={this.apiCallerService} />
                     <SelectMovieTypeTile apiService={this.apiCallerService} />
@@ -53,9 +55,11 @@ class MoviesSearchBar extends React.Component {
                 >
                     Run search
                 </Button>
-                {this.renderRedirectIfCalled()}
 
-                <Portal open={this.state.titleRequiredWarningShow} onClose={() => this.setState({ titleRequiredWarningShow: false })}>
+                <Portal
+                    open={this.state.titleRequiredWarningShow}
+                    onClose={() => this.setState({ titleRequiredWarningShow: false })}
+                >
                     <Segment style={{ left: '40%', position: 'fixed', top: '20%', zIndex: 1000 }}>
                         <Header>Title is required!</Header>
                         <p>Please set a title into proper box.</p>

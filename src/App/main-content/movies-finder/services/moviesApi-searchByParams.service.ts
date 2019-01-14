@@ -2,33 +2,30 @@ import axios from 'axios';
 import IMovieData from '../search-results/models/serverMovieData.model';
 import IApiRequestResponse from '../search-results/models/apiRequestResponse.model';
 
-export default class ApiCaller {
+export default class MoviesApiSearchByParams {
     private title: string;
     private type: string;
     private year: string;
     private page: string;
-    private personalApiKey = process.env.REACT_APP_OMDB_API_PERSONAL_KEY;
 
     private resultPagesTotalAmmount: number;
     private moviesList: IMovieData[] = [];
+    private apiUrl: string = "http://www.omdbapi.com/";
 
     public async attemptRequestGetMovies(title, type, year, page: any = "1"): Promise<boolean> {
-        this.title = this.ensureParamIsString(title);
-        this.type = this.ensureParamIsString(type);
-        this.year = this.ensureParamIsString(year);
-        this.page = this.ensureParamIsString(page);
-
+        this.ensureAllParamsAreStringTyped(title, type, year, page);
         const requestResponse = await this.getMovies(this.title, this.type, this.year);
 
-        if (requestResponse.Response === "False") return false;
-        else {
-            this.moviesList = requestResponse.Search;
-            this.setPagesTotalAmmount(requestResponse.totalResults)
+        if (this.isRequestSuccess(requestResponse)) {
+            this.saveResponseData(requestResponse);
             return true;
         }
+        else return false;
     }
 
-    public getMoviesList(): IMovieData[] {
+
+    public getDownloadedMoviesList(): IMovieData[] {
+        if (this.moviesList.length === 0) throw new Error('Before trying to read "downloaded" movie-list, make request to api to download it.')
         return this.moviesList;
     }
 
@@ -42,9 +39,9 @@ export default class ApiCaller {
     }
 
     private async getMovies(title: string, type: string, year: string): Promise<IApiRequestResponse> {
-        const apiUrl: string = "http://www.omdbapi.com/"
+        const personalApiKey = process.env.REACT_APP_OMDB_API_PERSONAL_KEY;
 
-        const requestUrl = apiUrl + "?&apikey=" + this.personalApiKey + this.combineParamsToUrl();
+        const requestUrl = this.apiUrl + "?apikey=" + personalApiKey + this.combineParamsToUrl();
         const result = await axios.get(requestUrl);
         return result.data;
     }
@@ -58,9 +55,26 @@ export default class ApiCaller {
         return combinedUrl;
     }
 
+    private ensureAllParamsAreStringTyped(title, type, year, page: any = "1"): void {
+        this.title = this.ensureParamIsString(title);
+        this.type = this.ensureParamIsString(type);
+        this.year = this.ensureParamIsString(year);
+        this.page = this.ensureParamIsString(page);
+    }
+
     private ensureParamIsString(textValueFromJSONparser: string | string[] | null | undefined): string {
         if (typeof (textValueFromJSONparser) === "string")
             return textValueFromJSONparser;
         else return "";
+    }
+
+    private isRequestSuccess(response): boolean {
+        if (response.Response === "True") return true;
+        else return false;
+    }
+
+    private saveResponseData(response): void {
+        this.moviesList = response.Search;
+        this.setPagesTotalAmmount(response.totalResults)
     }
 }
