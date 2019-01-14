@@ -50,7 +50,7 @@ class MovieDetails extends React.Component<any, IState>{
         if (movieDetails === null)
             return this.noDataYetMessage();
 
-        console.log("in render(): ", movieDetails);
+        // console.log("in render(): ", movieDetails);
         return (
             <div>
                 <Grid centered>

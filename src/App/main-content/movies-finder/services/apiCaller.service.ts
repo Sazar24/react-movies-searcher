@@ -7,7 +7,8 @@ export default class ApiCaller {
     private type: string;
     private year: string;
     private page: string;
-    private personalApiKey: string = "6341c995" // TODO: move it to .env
+    private personalApiKey = process.env.REACT_APP_OMDB_API_PERSONAL_KEY;
+
     private resultPagesTotalAmmount: number;
     private moviesList: IMovieData[] = [];
 
