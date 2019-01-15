@@ -70,6 +70,7 @@ class MovieDetails extends React.Component<any, IState>{
                                 <p> Plot: {movieDetails.Plot} </p>
                                 <p> Type: {movieDetails.Type} </p>
                                 <p> Genre: {movieDetails.Genre} </p>
+                                <p> RunTime: {movieDetails.Runtime} </p>
                                 <p> Director: {movieDetails.Director} </p>
                                 <p> Actors: {movieDetails.Actors} </p>
                                 <p> Country: {movieDetails.Country} </p>

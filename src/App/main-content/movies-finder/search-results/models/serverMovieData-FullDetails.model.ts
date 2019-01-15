@@ -3,7 +3,7 @@ import IMovieData from "./serverMovieData.model";
 export default interface IMovieDataFullDetails extends IMovieData{
     Rated: string;
     Release: string;
-    RuntTime: string;
+    Runtime: string;
     Genre: string;
     Director:string;
     Actors: string;

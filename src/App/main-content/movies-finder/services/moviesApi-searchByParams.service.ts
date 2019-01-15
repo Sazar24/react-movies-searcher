@@ -14,7 +14,6 @@ export default class MoviesApiSearchByParams {
 
     public async attemptRequestGetMovies(title, type, year, page: any = "1"): Promise<boolean> {
         this.ensureAllParamsAreStringTyped(title, type, year, page);
-        console.log("in service (.attemptRequest) this.page value: " + this.page);
         const requestResponse = await this.getMovies();
 
         if (this.isRequestSuccess(requestResponse)) {
@@ -27,7 +26,6 @@ export default class MoviesApiSearchByParams {
     public async attemptReloadWithPageChanged(page) :Promise<boolean>{
         this.ensureAllParamsAreStringTyped(this.title, this.type, this.year, page);
         const requestResponse = await this.getMovies();
-        console.log (`this values:  ${this.title}  ${this.type}  ${this.year}   ${page}`);
 
         if (this.isRequestSuccess(requestResponse)) {
             this.saveResponseData(requestResponse);
@@ -60,7 +58,6 @@ export default class MoviesApiSearchByParams {
         const personalApiKey = process.env.REACT_APP_OMDB_API_PERSONAL_KEY;
 
         const requestUrl = this.apiUrl + "?apikey=" + personalApiKey + this.combineParamsToUrl();
-        console.log("full request Url: " + requestUrl);
 
         const result = await axios.get(requestUrl);
         return result.data;

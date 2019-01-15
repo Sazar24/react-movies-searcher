@@ -23,7 +23,8 @@
       "no-public",
       "check-accessor"
     ],
-    "jsx-boolean-value": false
+    "jsx-boolean-value": false,
+    "member-ordering": [false]
   },
   "defaultSeverity": "warning"
 }

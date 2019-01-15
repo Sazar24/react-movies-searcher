@@ -25,7 +25,6 @@
 # 
 ## What im going to use - project core:
 - typescript
-- redux 
 - semantic-ui - version for ReactJS
 + routing
 

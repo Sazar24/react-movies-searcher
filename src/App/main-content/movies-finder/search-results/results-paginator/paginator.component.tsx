@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Pagination } from 'semantic-ui-react';
+import { Pagination, Icon } from 'semantic-ui-react';
 import CurrentUrlParametersReader from './captureCurrentUrl.service';
 import { Redirect } from 'react-router';
 import * as queryString from 'query-string';
@@ -21,6 +21,7 @@ interface IState {
 }
 
 class Paginator extends React.Component<IProps, IState>{
+    urlBuilder: UrlBuilder = new UrlBuilder();
     constructor(props) {
         super(props);
         this.state = {
@@ -29,58 +30,53 @@ class Paginator extends React.Component<IProps, IState>{
         }
     }
 
-    componentWillMount() {
+    private getPageNumberFromUrl(): string {
         const urlCurrentLocation = window.location.href; // Yeap. Thats not the best solution, but good enough to make things work.
         const queryStringFromUrl: string = queryString.extract(urlCurrentLocation);
         const urlParams: queryString.OutputParams = queryString.parse(queryStringFromUrl);
         const { page } = urlParams;
 
+        return String(page);
+    }
+
+    private setPaginator(page: string): void {
         if (typeof (page) === 'string')
             this.setState({
                 activePage: page
             });
+    };
+
+    componentWillMount() {
+        const page: string = this.getPageNumberFromUrl();
+        this.setPaginator(page);
     }
 
-    getParamsAndChangeRoute(pageNr: number) {
-        const urlBuilder: UrlBuilder = new UrlBuilder();
-        const urlCurrentLocation = window.location.href; // Yeap. Thats not the best solution, but good enough to make things work.
-        const queryStringFromUrl: string = queryString.extract(urlCurrentLocation);
-        const urlParams: queryString.OutputParams = queryString.parse(queryStringFromUrl);
+    private getParamsAndChangeRoute(pageNr: number) {
+        const urlCurrentLocation = window.location.href; 
+        this.urlBuilder.changeCurrentRoutePageParameter(urlCurrentLocation, pageNr);
 
-        if (typeof (urlParams.title) === 'string') urlBuilder.changeTitleSearchParam(urlParams.title);
-        if (typeof (urlParams.year) === 'string') urlBuilder.changeYearSearchParam(urlParams.year);
-        if (typeof (urlParams.type) === 'string') urlBuilder.changeTitleSearchParam(urlParams.type);
-        // if (typeof (urlParams.page) === 'string') urlBuilder.changePageSearchParam(pageNr.toString());
-        if (typeof (urlParams.page) === 'string') urlBuilder.changePageSearchParam(urlParams.page);
-
-        const history = createHistory();
-        history.push("/search/result/" + urlBuilder.buildRoute());
     }
+    
 
-    // redirectToChangedPageNumberRoute() {     // The simplest solution - but doesnt work. x)
-    //     // const urlParams: queryString.OutputParams = queryString.parse(this.props.location.search);
-    //     if (this.state.shouldRedirect)
-    //         return <Redirect to={"/search/result/" + this.urlBuilder.buildRoute()} />
-    //     else return;
-    // }
-
-    handlePaginationChange = (e: React.MouseEvent<HTMLAnchorElement>, { activePage }: any) => {
+    private handlePaginationChange = (e: React.MouseEvent<HTMLAnchorElement>, { activePage }: any) => {
         this.getParamsAndChangeRoute(activePage);
         this.props.reloadTrigger(activePage);
     }
 
 
     render() {
-        const { totalResultPagesAmmount } = this.props; 
+        const { totalResultPagesAmmount } = this.props;
 
         return (
-            < div >
+            <div>
                 <Pagination
                     defaultActivePage={this.state.activePage}
                     totalPages={totalResultPagesAmmount}
-                    lastItem={totalResultPagesAmmount}
-                    siblingRange={3}
-                    firstItem={1}
+                    siblingRange={2}
+                    firstItem={{ content: <Icon name='angle double left' />, icon: true }}
+                    lastItem={{ content: <Icon name='angle double right' />, icon: true }}
+                    prevItem={{ content: <Icon name='angle left' />, icon: true }}
+                    nextItem={{ content: <Icon name='angle right' />, icon: true }}
                     pointing
                     secondary
                     onPageChange={this.handlePaginationChange}
