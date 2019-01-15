@@ -67,7 +67,7 @@ export default class MoviesApiSearchByParams {
     private combineParamsToUrl(): string {
         const combinedUrl: string = "&s=" + this.title +
             (this.type ? "&type=" + this.type : "") +
-            (this.year ? "&year=" + this.year : "") +
+            (this.year ? "&y=" + this.year : "") +
             (this.page ? "&page=" + this.page : "");
 
         return combinedUrl;
