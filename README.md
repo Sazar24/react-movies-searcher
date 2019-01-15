@@ -43,4 +43,5 @@ There could (should) be:
 # 
 ### other
 - `.env` file is revealed and uploaded intentionally,
-- This repo is deployed on github-pages: [http://sazar24.github.io/react-movies-searcher/](http://sazar24.github.io/react-movies-searcher/) 
+- This repo is deployed on github-pages: [http://sazar24.github.io/react-movies-searcher/](http://sazar24.github.io/react-movies-searcher/)  
+Enjoy :)

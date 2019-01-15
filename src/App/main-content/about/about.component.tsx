@@ -8,7 +8,7 @@ class About extends React.Component {
                     <p> Suprise, suprise... There is no much content on this page ;) </p>
                     <p> The most important things were said on the main/starting page.</p>
                 </div>
-                <div>
+                <div style={{ "marginBottom": "70px" }}>
                     Source code of this web-app is avaible here: <a href="https://github.com/Sazar24/react-movies-searcher" > github repo </a>.
                 </div>
             </div>

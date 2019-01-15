@@ -10,7 +10,7 @@ export default class MoviesApiSearchByParams {
 
     private resultPagesTotalAmmount: number;
     private moviesList: IMovieData[] = [];
-    private apiUrl: string = "http://www.omdbapi.com/";
+    private apiUrl: string = "https://www.omdbapi.com/";
 
     public async attemptRequestGetMovies(title, type, year, page: any = "1"): Promise<boolean> {
         this.ensureAllParamsAreStringTyped(title, type, year, page);

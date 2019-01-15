@@ -3,7 +3,7 @@ import IMovieDataFullDetails from '../search-results/models/serverMovieData-Full
 
 
 export default class MoviesApiSearchById {
-    private apiUrl: string = "http://www.omdbapi.com/";
+    private apiUrl: string = "https://www.omdbapi.com/";
     private movieFoundById: IMovieDataFullDetails;
 
     public async attemptGetMovieById(id: string): Promise<boolean> {

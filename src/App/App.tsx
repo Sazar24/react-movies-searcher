@@ -8,7 +8,7 @@ import RouterContent from './main-content/router-content.component';
 class App extends React.Component {
   render() {
     return (
-      <Router>
+      <Router basename="/react-movies-searcher">
         <div className="App">
           <NavigationBar />
           <RouterContent />
