@@ -1,5 +1,6 @@
 {
-  "name": "movie-searcher",
+  "homepage": "http://sazar24.github.io/react-movies-searcher",
+  "name": "react-movies-searcher",
   "version": "0.1.0",
   "private": true,
   "jest": {
@@ -35,7 +36,9 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "@types/jest": "^23.3.11",
@@ -44,6 +47,7 @@
     "@types/react-dom": "^16.0.11",
     "@types/react-router-dom": "^4.3.1",
     "dotenv": "^6.2.0",
+    "gh-pages": "^2.0.1",
     "typescript": "^3.2.2"
   }
 }

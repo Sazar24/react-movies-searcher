@@ -30,12 +30,17 @@
 
 #
 ## What other features could be in the project, but I won`t include 
-... because od little time.
-There could be:
-- probably more colors. Everyone like rainbows...
+... because of little time.
+There could (should) be:
+- IoC 
 - more tests. There always should be more tests...
-- IoC. 
+- probably more colors. Everyone like rainbows...
 
 #
 ## How to start
 `npm start` of course :)
+
+# 
+### other
+- `.env` file is revealed and uploaded intentionally,
+- This repo is deployed on github-pages: [http://sazar24.github.io/react-movies-searcher/](http://sazar24.github.io/react-movies-searcher/) 

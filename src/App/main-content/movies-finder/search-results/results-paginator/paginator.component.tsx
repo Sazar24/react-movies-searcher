@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { Pagination, Icon } from 'semantic-ui-react';
-import CurrentUrlParametersReader from './captureCurrentUrl.service';
 import { Redirect } from 'react-router';
 import * as queryString from 'query-string';
-import UrlBuilder from '../../services/routeUrlBuilder.service';
-
-
 import createHistory from 'history/createBrowserHistory';
+import UrlBuilder from '../../services/routeUrlBuilder.service';
 import MoviesApiSearchByParams from '../../services/moviesApi-searchByParams.service';
+import { Row, Col } from 'react-grid-system';
+import { Pagination, Icon } from 'semantic-ui-react';
 
 interface IProps {
     totalResultPagesAmmount: number;
@@ -52,11 +50,11 @@ class Paginator extends React.Component<IProps, IState>{
     }
 
     private getParamsAndChangeRoute(pageNr: number) {
-        const urlCurrentLocation = window.location.href; 
+        const urlCurrentLocation = window.location.href;
         this.urlBuilder.changeCurrentRoutePageParameter(urlCurrentLocation, pageNr);
 
     }
-    
+
 
     private handlePaginationChange = (e: React.MouseEvent<HTMLAnchorElement>, { activePage }: any) => {
         this.getParamsAndChangeRoute(activePage);
@@ -68,20 +66,18 @@ class Paginator extends React.Component<IProps, IState>{
         const { totalResultPagesAmmount } = this.props;
 
         return (
-            <div>
-                <Pagination
-                    defaultActivePage={this.state.activePage}
-                    totalPages={totalResultPagesAmmount}
-                    siblingRange={2}
-                    firstItem={{ content: <Icon name='angle double left' />, icon: true }}
-                    lastItem={{ content: <Icon name='angle double right' />, icon: true }}
-                    prevItem={{ content: <Icon name='angle left' />, icon: true }}
-                    nextItem={{ content: <Icon name='angle right' />, icon: true }}
-                    pointing
-                    secondary
-                    onPageChange={this.handlePaginationChange}
-                />
-            </div >
+            <Pagination
+                defaultActivePage={this.state.activePage}
+                totalPages={totalResultPagesAmmount}
+                siblingRange={1}
+                firstItem={{ content: <Icon name='angle double left' />, icon: true }}
+                lastItem={{ content: <Icon name='angle double right' />, icon: true }}
+                prevItem={{ content: <Icon name='angle left' />, icon: true }}
+                nextItem={{ content: <Icon name='angle right' />, icon: true }}
+                pointing
+                secondary
+                onPageChange={this.handlePaginationChange}
+            />
         )
     }
 }

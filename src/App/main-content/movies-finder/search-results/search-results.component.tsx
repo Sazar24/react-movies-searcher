@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 import MoviesApiSearchByParams from '../services/moviesApi-searchByParams.service';
 import IMovieData from './models/serverMovieData.model';
 import MovieListMapperWithPagginator from './movie-list-mapper.component';
-import LoaderAndFailureInfo from './warns-and-loading/Loader-and-aboutfailureMessenger.component';
+import LoaderAndFailureInfo from './warns-and-loading/LoaderAndFailureInfo.component';
 
 interface IState {
     moviesList: IMovieData[];
