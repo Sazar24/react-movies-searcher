@@ -6,7 +6,6 @@ import IMovieData from './models/serverMovieData.model';
 import MovieListMapperWithPagginator from './movie-list-mapper.component';
 import LoaderAndFailureInfo from './warns-and-loading/Loader-and-aboutfailureMessenger.component';
 
-
 interface IState {
     moviesList: IMovieData[];
     currentPageNumber: number;
@@ -48,6 +47,15 @@ class SearchResults extends React.Component<any, IState> {
         else this.updateStateThatRequestFailed();
     }
 
+    reloadWithPageChanged = async (page: number) => {
+        const pageAsString = page.toString();
+        const isRequestSuccess: boolean = await this.apiCaller.attemptReloadWithPageChanged(pageAsString);
+        if (isRequestSuccess) {
+            this.saveDataAndUpdateState();
+        }
+        else this.updateStateThatRequestFailed();
+    }
+
 
     isTitleDefined(urlParams: queryString.OutputParams) {
         if (urlParams.title) return true;
@@ -58,7 +66,8 @@ class SearchResults extends React.Component<any, IState> {
         const movies: IMovieData[] = this.apiCaller.getDownloadedMoviesList();
         this.setState({
             moviesList: movies,
-            totalResultPagesAmmount: this.apiCaller.getResultPagesTotalAmmount()
+            totalResultPagesAmmount: this.apiCaller.getResultPagesTotalAmmount(),
+            currentPageNumber: this.apiCaller.getCurrentPageValue(),
         });
     }
 
@@ -71,9 +80,8 @@ class SearchResults extends React.Component<any, IState> {
     }
 
 
-    public render() {
-        
-        const { moviesList, totalResultPagesAmmount, isFetchingFailure } = this.state;
+    public render() { 
+        const { moviesList, totalResultPagesAmmount, isFetchingFailure, currentPageNumber } = this.state;
         const isMovieListDownloaded: boolean = moviesList.length > 0;
 
         return (
@@ -84,6 +92,8 @@ class SearchResults extends React.Component<any, IState> {
                     ? <MovieListMapperWithPagginator
                         moviesList={moviesList}
                         totalResultPagesAmmount={totalResultPagesAmmount}
+                        currentPageNumber={currentPageNumber}
+                        reloadTrigger={this.reloadWithPageChanged}
                     />
                     : ""}
 

@@ -14,7 +14,8 @@ export default class MoviesApiSearchByParams {
 
     public async attemptRequestGetMovies(title, type, year, page: any = "1"): Promise<boolean> {
         this.ensureAllParamsAreStringTyped(title, type, year, page);
-        const requestResponse = await this.getMovies(this.title, this.type, this.year);
+        console.log("in service (.attemptRequest) this.page value: " + this.page);
+        const requestResponse = await this.getMovies();
 
         if (this.isRequestSuccess(requestResponse)) {
             this.saveResponseData(requestResponse);
@@ -23,6 +24,17 @@ export default class MoviesApiSearchByParams {
         else return false;
     }
 
+    public async attemptReloadWithPageChanged(page) :Promise<boolean>{
+        this.ensureAllParamsAreStringTyped(this.title, this.type, this.year, page);
+        const requestResponse = await this.getMovies();
+        console.log (`this values:  ${this.title}  ${this.type}  ${this.year}   ${page}`);
+
+        if (this.isRequestSuccess(requestResponse)) {
+            this.saveResponseData(requestResponse);
+            return true;
+        }
+        else return false; 
+    }
 
     public getDownloadedMoviesList(): IMovieData[] {
         if (this.moviesList.length === 0) throw new Error('Before trying to read "downloaded" movie-list, make request to api to download it.')
@@ -33,19 +45,27 @@ export default class MoviesApiSearchByParams {
         return this.resultPagesTotalAmmount;
     }
 
+    public getCurrentPageValue(): number {
+        const pageValueAsNumber: number = parseInt(this.page, 10);
+        return pageValueAsNumber;
+    }
+
 
     private setPagesTotalAmmount(ammount: number): void {
-        const moviesPerPage: number = 10
+        const moviesPerPage: number = 10;
         this.resultPagesTotalAmmount = Math.ceil(ammount / moviesPerPage);
     }
 
-    private async getMovies(title: string, type: string, year: string): Promise<IApiRequestResponse> {
+    private async getMovies(): Promise<IApiRequestResponse> {
         const personalApiKey = process.env.REACT_APP_OMDB_API_PERSONAL_KEY;
 
         const requestUrl = this.apiUrl + "?apikey=" + personalApiKey + this.combineParamsToUrl();
+        console.log("full request Url: " + requestUrl);
+
         const result = await axios.get(requestUrl);
         return result.data;
     }
+
 
     private combineParamsToUrl(): string {
         const combinedUrl: string = "&s=" + this.title +

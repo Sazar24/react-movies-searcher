@@ -6,9 +6,11 @@ import TitleSelectTile from './search-parameters-selecting/title.component';
 import UrlBuilder from './services/routeUrlBuilder.service';
 import { Redirect } from 'react-router-dom';
 
+
+
 class MoviesSearchBar extends React.Component {
     state = {
-        redirect: false,
+        shouldRedirect: false,
         titleRequiredWarningShow: false
     }
 
@@ -26,16 +28,20 @@ class MoviesSearchBar extends React.Component {
 
     setRedirect = () => {
         this.setState({
-            redirect: true
+            shouldRedirect: true
         })
     }
+    
 
     renderRedirectIfCalled() {
-        if (this.state.redirect) {
+        const shouldRedirectPage: boolean = this.state.shouldRedirect ? true : false;
+
+        if (shouldRedirectPage) {
             return <Redirect to={"search/result/" + this.apiCallerService.buildRoute()} />
         }
         else return;
     }
+
 
     render() {
         const centered = { marginLeft: "auto", marginRight: "auto", paddingBottom: "0px" };

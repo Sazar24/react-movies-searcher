@@ -19,7 +19,8 @@ class SelectMovieTypeTile extends React.Component<ISearchParamTileProps> {
         const moviesPossibleTypes: IDropdownItemOption[] = [
             { text: "movie", value: "movie" },
             { text: "series", value: "series" },
-            { text: "episode", value: "episode" }
+            { text: "episode", value: "episode" },
+            { text: "game", value: "game" }
         ];
 
         return (
