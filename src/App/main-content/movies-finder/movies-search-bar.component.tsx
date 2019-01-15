@@ -5,7 +5,7 @@ import SelectMovieTypeTile from './search-parameters-selecting/type.component';
 import TitleSelectTile from './search-parameters-selecting/title.component';
 import UrlBuilder from './services/routeUrlBuilder.service';
 import { Redirect } from 'react-router-dom';
-
+import { Row, Col } from 'react-grid-system';
 
 
 class MoviesSearchBar extends React.Component {
@@ -31,7 +31,7 @@ class MoviesSearchBar extends React.Component {
             shouldRedirect: true
         })
     }
-    
+
 
     renderRedirectIfCalled() {
         const shouldRedirectPage: boolean = this.state.shouldRedirect ? true : false;
@@ -44,16 +44,23 @@ class MoviesSearchBar extends React.Component {
 
 
     render() {
-        const centered = { marginLeft: "auto", marginRight: "auto", paddingBottom: "0px" };
+        const centered = { marginLeft: "auto", marginRight: "auto", paddingBottom: "0px", };
 
         return (
             <div>
                 {this.renderRedirectIfCalled()}
-
                 <Segment style={centered} vertical compact>
-                    <TitleSelectTile apiService={this.apiCallerService} />
-                    <SelectMovieTypeTile apiService={this.apiCallerService} />
-                    <SelectYearTile apiService={this.apiCallerService} />
+                    <Row>
+                        <Col xs={12} sm={6} md={4} lg={4} xl={4}>
+                            <TitleSelectTile apiService={this.apiCallerService} />
+                        </Col>
+                        <Col xs={12} sm={6} md={4} lg={4} xl={4}>
+                            <SelectMovieTypeTile apiService={this.apiCallerService} />
+                        </Col>
+                        <Col xs={12} sm={6} md={4} lg={4} xl={4}>
+                            <SelectYearTile apiService={this.apiCallerService} />
+                        </Col>
+                    </Row>
                 </Segment>
                 <Button
                     onClick={this.handleClick}
