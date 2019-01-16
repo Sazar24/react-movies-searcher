@@ -1,10 +1,6 @@
 import * as React from 'react';
-import { Redirect } from 'react-router';
 import * as queryString from 'query-string';
-import createHistory from 'history/createBrowserHistory';
 import UrlBuilder from '../../services/routeUrlBuilder.service';
-import MoviesApiSearchByParams from '../../services/moviesApi-searchByParams.service';
-import { Row, Col } from 'react-grid-system';
 import { Pagination, Icon } from 'semantic-ui-react';
 
 interface IProps {

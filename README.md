@@ -33,7 +33,7 @@
 ... because of little time.
 There could (should) be:
 - IoC 
-- more tests. There always should be more tests...
+- more tests. Much, much more...j
 - probably more colors. Everyone like rainbows...
 
 #

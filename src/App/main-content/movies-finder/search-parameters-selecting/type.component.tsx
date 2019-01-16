@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Segment, Header, Dropdown } from 'semantic-ui-react'
-import { ISearchParamTileProps, IDropdownItemOption } from './ui-interfaces.model';
+import { ISearchParamTileProps, IDropdownItemOption } from './model/ui-interfaces.model';
 
 
 
@@ -9,7 +9,7 @@ class SelectMovieTypeTile extends React.Component<ISearchParamTileProps> {
         super(props);
     }
 
-    handleChange = (e: React.ChangeEvent<HTMLInputElement>, { text, value }: IDropdownItemOption) => {
+    private handleChange = (e: React.ChangeEvent<HTMLInputElement>, { text, value }: IDropdownItemOption) => {
         this.props.apiService.changeMovieTypeSearchParam(value);
     }
 

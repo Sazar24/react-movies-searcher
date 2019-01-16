@@ -1,4 +1,4 @@
-import UrlBuilder from '../services/routeUrlBuilder.service';
+import UrlBuilder from '../../services/routeUrlBuilder.service';
 
 export interface ISearchParamTileProps {
     apiService: UrlBuilder;

@@ -3,7 +3,6 @@ import IMovieData from './models/serverMovieData.model';
 import { Grid } from 'semantic-ui-react';
 import MoviesListItemAsRow from './movies-list-item-As-Row.component';
 import Paginator from './results-paginator/paginator.component';
-import MoviesApiSearchByParams from '../services/moviesApi-searchByParams.service';
 
 interface IProps {
     moviesList: IMovieData[];

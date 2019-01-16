@@ -26,17 +26,12 @@ class SearchResults extends React.Component<any, IState> {
         })
     }
 
-
-    redirectToSearchIfNoTitleInRoute() {
-        const urlParams: queryString.OutputParams = queryString.parse(this.props.location.search);
-
-        if (!this.isTitleDefined(urlParams))
-            return <Redirect to="/search" />
-        else return;
+    componentWillMount() {
+        this.downloadMoviesToStateOrWarnWhenFailure();
     }
 
 
-    async downloadMoviesToStateOrWarnWhenFailure() {
+    private async downloadMoviesToStateOrWarnWhenFailure() {
         const urlParams: queryString.OutputParams = queryString.parse(this.props.location.search);
         const { title, type, year, page } = urlParams;
 
@@ -47,6 +42,20 @@ class SearchResults extends React.Component<any, IState> {
         else this.updateStateThatRequestFailed();
     }
 
+    private saveDataAndUpdateState(): void {
+        const movies: IMovieData[] = this.apiCaller.getDownloadedMoviesList();
+        this.setState({
+            moviesList: movies,
+            totalResultPagesAmmount: this.apiCaller.getResultPagesTotalAmmount(),
+            currentPageNumber: this.apiCaller.getCurrentPageValue(),
+        });
+    }
+
+    private updateStateThatRequestFailed(): void {
+        this.setState({ isFetchingFailure: true });
+    }
+
+
     reloadWithPageChanged = async (page: number) => {
         const pageAsString = page.toString();
         const isRequestSuccess: boolean = await this.apiCaller.attemptReloadWithPageChanged(pageAsString);
@@ -56,31 +65,21 @@ class SearchResults extends React.Component<any, IState> {
         else this.updateStateThatRequestFailed();
     }
 
+    private redirectToSearchIfNoTitleInRoute() {
+        const urlParams: queryString.OutputParams = queryString.parse(this.props.location.search);
 
-    isTitleDefined(urlParams: queryString.OutputParams) {
+        if (!this.isTitleDefined(urlParams))
+            return <Redirect to="/search" />
+        else return;
+    }
+
+    
+    private isTitleDefined(urlParams: queryString.OutputParams) {
         if (urlParams.title) return true;
         else return false;
     }
 
-    saveDataAndUpdateState(): void {
-        const movies: IMovieData[] = this.apiCaller.getDownloadedMoviesList();
-        this.setState({
-            moviesList: movies,
-            totalResultPagesAmmount: this.apiCaller.getResultPagesTotalAmmount(),
-            currentPageNumber: this.apiCaller.getCurrentPageValue(),
-        });
-    }
-
-    updateStateThatRequestFailed(): void {
-        this.setState({ isFetchingFailure: true });
-    }
-
-    public componentWillMount() {
-        this.downloadMoviesToStateOrWarnWhenFailure();
-    }
-
-
-    public render() { 
+    render() {
         const { moviesList, totalResultPagesAmmount, isFetchingFailure, currentPageNumber } = this.state;
         const isMovieListDownloaded: boolean = moviesList.length > 0;
 

@@ -1,10 +1,7 @@
 import * as React from 'react';
-import MoviesApiSearchByParams from '../../services/moviesApi-searchByParams.service';
-import * as queryString from 'query-string';
 import MoviesApiSearchById from '../../services/moviesApi-searchById.service';
 import IMovieDataFullDetails from '../models/serverMovieData-FullDetails.model';
-import IMovieData from '../models/serverMovieData.model';
-import { Grid, GridRow, Image } from 'semantic-ui-react';
+import { Grid, Image } from 'semantic-ui-react';
 
 interface IState {
     movieDetails: IMovieDataFullDetails | null;
@@ -19,8 +16,12 @@ class MovieDetails extends React.Component<any, IState>{
         })
     }
 
+    componentWillMount() {
+        this.getMovieDetailsById();
+    }
 
-    async getMovieDetailsById() {
+
+    private async getMovieDetailsById() {
         const movieId: string = this.props.match.params.movieId;
         const isRequestSucces: boolean = await this.apiCaller.attemptGetMovieById(movieId);
 
@@ -31,23 +32,18 @@ class MovieDetails extends React.Component<any, IState>{
     }
 
 
-    fetchDownloadedMovieDataToState() {
+    private fetchDownloadedMovieDataToState() {
         const movieData: IMovieDataFullDetails = this.apiCaller.getMovieById()
         this.setState({ movieDetails: movieData });
     }
 
-
-    noDataYetMessage() {
+    private noDataYetMessage() {
         return (
             <div>
                 <p> Movie details loading... Or maybe such movie does not exist. Or maybe sth is wrong with connection. </p>
                 <p> Anyway... I am trying to load up the data you asked for.</p>
             </div>
         )
-    }
-
-    componentWillMount() {
-        this.getMovieDetailsById();
     }
 
     render() {
