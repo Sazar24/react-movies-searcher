@@ -9,8 +9,7 @@ class SelectYearTile extends React.Component<ISearchParamTileProps> {
     }
 
     private handleChange = (e: React.ChangeEvent<HTMLInputElement>, { text, value }: IDropdownItemOption) => {
-        const chosenValueAsNumber = JSON.parse(value);
-        this.props.apiService.changeYearSearchParam(chosenValueAsNumber);
+        this.props.apiService.changeYearSearchParam(value);
     }
 
     render() {
